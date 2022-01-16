@@ -754,6 +754,9 @@
     <Reference Include="Microsoft.MixedReality.Toolkit.Providers.LeapMotion.Editor">
       <HintPath>Library\ScriptAssemblies\Microsoft.MixedReality.Toolkit.Providers.LeapMotion.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.XR.WindowsMR.Editor">
+      <HintPath>Library\ScriptAssemblies\Unity.XR.WindowsMR.Editor.dll</HintPath>
+    </Reference>
     <Reference Include="Unity.VisualStudio.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.VisualStudio.Editor.dll</HintPath>
     </Reference>
@@ -787,17 +790,14 @@
     <Reference Include="Unity.PlasticSCM.Editor">
       <HintPath>Library\ScriptAssemblies\Unity.PlasticSCM.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="Unity.XR.WindowsMR">
+      <HintPath>Library\ScriptAssemblies\Unity.XR.WindowsMR.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.MixedReality.Toolkit.Services.InputSimulation">
       <HintPath>Library\ScriptAssemblies\Microsoft.MixedReality.Toolkit.Services.InputSimulation.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
       <HintPath>Library\ScriptAssemblies\UnityEditor.UI.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.XR.WindowsMR.Editor">
-      <HintPath>Library\ScriptAssemblies\Unity.XR.WindowsMR.Editor.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.XR.WindowsMR">
-      <HintPath>Library\ScriptAssemblies\Unity.XR.WindowsMR.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
