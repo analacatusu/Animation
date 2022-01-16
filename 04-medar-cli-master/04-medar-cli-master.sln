@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp", "Assembly-CSharp.csproj", "{F4F5AAE4-ABE9-59C4-DABC-2EE0A5FE4BEA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assembly-CSharp-Editor", "Assembly-CSharp-Editor.csproj", "{6C7287FA-EC35-9BA3-B539-3335CE4EA8AB}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EditorMigrationScripts", "EditorMigrationScripts.csproj", "{FD9E4748-15E2-376F-1C90-327096260C80}"
 EndProject
 Global
@@ -15,6 +17,10 @@ Global
 		{F4F5AAE4-ABE9-59C4-DABC-2EE0A5FE4BEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F4F5AAE4-ABE9-59C4-DABC-2EE0A5FE4BEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F4F5AAE4-ABE9-59C4-DABC-2EE0A5FE4BEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6C7287FA-EC35-9BA3-B539-3335CE4EA8AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6C7287FA-EC35-9BA3-B539-3335CE4EA8AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6C7287FA-EC35-9BA3-B539-3335CE4EA8AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6C7287FA-EC35-9BA3-B539-3335CE4EA8AB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FD9E4748-15E2-376F-1C90-327096260C80}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FD9E4748-15E2-376F-1C90-327096260C80}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FD9E4748-15E2-376F-1C90-327096260C80}.Release|Any CPU.ActiveCfg = Release|Any CPU
