@@ -14,19 +14,19 @@ public class TextToSpeechLogic : MonoBehaviour
     public float speed = 1;
 
     //create as many target Objects as you need for manipulation
-    public GameObject target1;
-    //public GameObject target2;
-    //public Animation AnimationTarget1;
-    //public Animation AnimationTarget2;
+    public GameObject SpeechHandler;
 
     protected PhraseRecognizer recognizer;
     protected string word = "right";
 
     TextToSpeech textToSpeech = new TextToSpeech();
+    //initializing of the sentence position > i changes the position in the sentence[]-array > selects the sentence
+    int i = 0;
     //Sample Sentences
     private string[] sentence = {   "clean and drape the insertion site. Infiltrate local anesthetic all around the site, working down toward the vein.",
                               //Insertion
-                                    "palpate the carotid artery with your left hand, covering the artery with your fingers. Insert the needle 0.5–1 cm laterally to the artery, aiming at a 45°angle to the vertical",
+                                    "palpate the carotid artery with your left hand, covering the artery with your fingers.",
+                                    "Insert the needle 0.5–1 cm laterally to the artery, aiming at a 45°angle to the vertical",
                                     "Advance slowly, aspirating all the time, until you enter the vein. Enter 3-4 cm into the vein.",
                                     //"did you aspirate blood after entering 3-4cm?,
                                     //" withdraw, re-enter at the same point, but aim slightly more medially",
@@ -48,6 +48,7 @@ public class TextToSpeechLogic : MonoBehaviour
         {
             Debug.Log("Name: " + device);
         }
+        //initializing the sentence position to the beginning
     }
 
     private void Recognizer_OnPhraseRecognized(PhraseRecognizedEventArgs args)
@@ -57,27 +58,45 @@ public class TextToSpeechLogic : MonoBehaviour
 
     private void Update()
     {
-        switch (word)
+        if(i<6)
         {
-            case "start":
-                textToSpeech.StartSpeaking(sentence[1]);
-                break;
-            case "finish":
-                break;
-            case "pause":
-                break;
-            case "continue":
-                break;
-            case "next step":
-                break;
-            case "back":
-                break;
-            case "repeat":
-                break;
-            case "restart training":
-                break;
+            switch (word)
+            {
+                case "start":
+                    //beginning at position 0 = beginning
+                    i = 0;
+                    textToSpeech.StartSpeaking(sentence[0]);
+                    break;
+                case "finish":
+                    if (textToSpeech.IsSpeaking() == true) { textToSpeech.StopSpeaking(); }
+                    OnApplicationQuit();
+                    i = 0;
+                    break;
+                case "pause":
+                    if (textToSpeech.IsSpeaking() == true) { textToSpeech.StopSpeaking(); }
+                    break;
+                case "continue":
+                    textToSpeech.StartSpeaking(sentence[i]);
+                    break;
+                case "next step":
+                    i--;
+                    textToSpeech.StartSpeaking(sentence[i]);
+                    break;
+                case "back":
+                    if (i > 0) { i--; }
+                    textToSpeech.StartSpeaking(sentence[i]);
+                    break;
+                case "repeat":
+                    textToSpeech.StartSpeaking(sentence[i]);
+                    break;
+                case "restart training":
+                    i = 0;
+                    textToSpeech.StartSpeaking(sentence[i]);
+                    break;
+            }
+            if (i == 2 && word != "pause") { /*start animation*/}
+            textToSpeech.StopSpeaking();
         }
-
     }
     private void OnApplicationQuit()
     {

@@ -53,6 +53,7 @@
     <UnityVersion>2019.4.31f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\TextToSpeechCode.cs" />
     <Compile Include="Assets\TextToSpeechLogic.cs" />
     <Compile Include="Assets\TrackableList.cs" />
     <Compile Include="Assets\moveDown.cs" />
