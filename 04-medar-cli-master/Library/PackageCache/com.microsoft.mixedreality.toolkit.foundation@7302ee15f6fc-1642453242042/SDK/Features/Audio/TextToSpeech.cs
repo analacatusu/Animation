@@ -73,6 +73,9 @@ namespace Microsoft.MixedReality.Toolkit.Audio
         [SerializeField]
         private TextToSpeechVoice voice;
 
+        private int counter = 0; //counter set to the beginning > 0 equals step 1
+        string speakerstext = "text";
+
 #if WINDOWS_UWP
         private SpeechSynthesizer synthesizer;
         private VoiceInformation voiceInfo;
@@ -328,6 +331,9 @@ namespace Microsoft.MixedReality.Toolkit.Audio
             // Make sure there's something to speak
             if (string.IsNullOrEmpty(text)) { return; }
 
+            //move to the 2nd step
+            counter += 1;
+
             // Pass to helper method
 #if WINDOWS_UWP
             PlaySpeech(text, ()=> synthesizer.SynthesizeTextToStreamAsync(text));
@@ -336,11 +342,59 @@ namespace Microsoft.MixedReality.Toolkit.Audio
 #endif
         }
 
+        public void StartSpeakingNext()
+        {
+            //check if it´s the last step > if not, go to the next step and change the speakers text
+            if (counter <= 4) { counter++; }
+            
+                 if (counter == 1) { speakerstext = "palpate the carotid artery with your left hand, covering the artery with your fingers. Insert the needle 0.5–1 cm laterally to the artery, aiming at a 45°angle to the vertical"; }
+                 else if (counter == 2) { speakerstext = "Advance slowly, aspirating all the time, until you enter the vein.Enter 3 - 4 cm into the vein."; }
+                 else if (counter == 3) { speakerstext = "Remove the syringe, keeping the needle very still, and immediately put your thumb over the end of the needle. Great job, you sucessfully inserted the central line!"; }   
+                 else if (counter == 4) FinishSpeaking();
+
+            // Pass to helper method
+#if WINDOWS_UWP
+            PlaySpeech(speakerstext, ()=> synthesizer.SynthesizeTextToStreamAsync(speakerstext));
+#else
+            Debug.LogWarningFormat("Text to Speech not supported in editor.\n\"{0}\"", speakerstext);
+#endif
+        }
+
+        public void StartSpeakingBack()
+        {
+            if (counter > 0) { counter--; }
+            
+                if (counter == 0) { speakerstext = "Welcome to the training session. Once you've cleaned and numbed the site, you can pick up the needle."; }
+                else if (counter == 1) { speakerstext = "palpate the carotid artery with your left hand, covering the artery with your fingers. Insert the needle 0.5–1 cm laterally to the artery, aiming at a 45°angle to the vertical"; }
+                else if (counter == 2) { speakerstext = "Advance slowly, aspirating all the time, until you enter the vein.Enter 3 - 4 cm into the vein."; }
+                else if (counter == 3) { speakerstext = "Remove the syringe, keeping the needle very still, and immediately put your thumb over the end of the needle. Great job, you sucessfully inserted the central line!"; }
+             
+            // Pass to helper method
+#if WINDOWS_UWP
+            PlaySpeech(speakerstext, ()=> synthesizer.SynthesizeTextToStreamAsync(speakerstext));
+#else
+            Debug.LogWarningFormat("Text to Speech not supported in editor.\n\"{0}\"", speakerstext);
+#endif
+        }
+
+        public void FinishSpeaking()
+        {
+            // Quit the app
+            speakerstext = "Well done and see you soon.";
+            // Pass to helper method
+#if WINDOWS_UWP
+            PlaySpeech(speakerstext, ()=> synthesizer.SynthesizeTextToStreamAsync(speakerstext));
+#else
+            Debug.LogWarningFormat("Text to Speech not supported in editor.\n\"{0}\"", speakerstext);
+#endif
+        }
+
         /// <summary>
         /// Returns info whether a text is submitted and being processed by PlaySpeech method
         /// Handy for avoiding situations when a text is submitted, but audio clip is not yet ready because the audio source isn't playing yet.
         /// Example: yield return new WaitWhile(() => textToSpeechManager.SpeechTextInQueue() || textToSpeechManager.IsSpeaking())
         /// </summary>
+        /// 
         public bool SpeechTextInQueue()
         {
 #if WINDOWS_UWP

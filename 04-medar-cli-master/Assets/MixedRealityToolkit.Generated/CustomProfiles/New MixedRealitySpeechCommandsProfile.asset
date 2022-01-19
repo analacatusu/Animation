@@ -45,14 +45,14 @@ MonoBehaviour:
       description: None
       axisConstraint: 0
   - localizationKey: 
-    keyword: next step
+    keyword: next
     keyCode: 0
     action:
       id: 0
       description: None
       axisConstraint: 0
   - localizationKey: 
-    keyword: repeat
+    keyword: back
     keyCode: 0
     action:
       id: 0
