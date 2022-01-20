@@ -17,17 +17,27 @@ public class toggle : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             print("space key was pressed");
-         
-            if(OBJECT1.transform.localScale.x == 0 && OBJECT1.transform.localScale.y == 0 && OBJECT1.transform.localScale.z == 0)
+
+            if (OBJECT1.transform.localScale.x == 0 && OBJECT1.transform.localScale.y == 0 && OBJECT1.transform.localScale.z == 0)
             {
-                OBJECT1.transform.localScale = new Vector3(scale, scale, scale);
-            } else
-            {
-                OBJECT1.transform.localScale = new Vector3(0, 0, 0);
+                start_animation();
             }
-           
-            
+            else
+            {
+                stop_animation();
+            }
+
+
         }
 
+    }
+    public void start_animation()
+    {
+        OBJECT1.transform.localScale = new Vector3(scale, scale, scale);
+    }
+
+    public void stop_animation()
+    {
+        OBJECT1.transform.localScale = new Vector3(0, 0, 0);
     }
 }

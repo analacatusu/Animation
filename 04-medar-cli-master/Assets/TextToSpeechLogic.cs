@@ -15,6 +15,7 @@ public class TextToSpeechLogic : MonoBehaviour
 
     //create as many target Objects as you need for manipulation
     public GameObject SpeechHandler;
+    public GameObject Syringe;
 
     protected PhraseRecognizer recognizer;
     protected string word = "right";
