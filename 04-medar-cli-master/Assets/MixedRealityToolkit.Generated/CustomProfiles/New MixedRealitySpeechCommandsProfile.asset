@@ -65,3 +65,17 @@ MonoBehaviour:
       id: 0
       description: None
       axisConstraint: 0
+  - localizationKey: 
+    keyword: repeat
+    keyCode: 0
+    action:
+      id: 0
+      description: None
+      axisConstraint: 0
+  - localizationKey: 
+    keyword: continue
+    keyCode: 0
+    action:
+      id: 0
+      description: None
+      axisConstraint: 0
