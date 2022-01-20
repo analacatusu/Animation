@@ -324,9 +324,9 @@ namespace Microsoft.MixedReality.Toolkit.Audio
 
 
 
-
-
-
+        //initializing the animation
+        public GameObject syringe;
+        public Animation animationTarget;
 
 
 
