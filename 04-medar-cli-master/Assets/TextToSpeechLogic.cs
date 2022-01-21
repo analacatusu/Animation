@@ -32,7 +32,10 @@ public class TextToSpeechLogic : MonoBehaviour
             //alternatively
             //public toggle Syringe = new toggle();
         }
-        else if (position == 2) { speakerstext = "Advance slowly, aspirating all the time, until you enter the vein.Enter 3 to 4 centimeters into the vein."; }
+        else if (position == 2) 
+        { syringe.GetComponent<toggle>().stop_animation(); 
+          speakerstext = "Advance slowly, aspirating all the time, until you enter the vein.Enter 3 to 4 centimeters into the vein."; 
+        }
         else if (position == 3) { speakerstext = "Remove the syringe, keeping the needle very still, and immediately put your thumb over the end of the needle. Great job, you sucessfully inserted the central line!"; }
         else if (position > 3)  {FinishSpeaking();}
 
