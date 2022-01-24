@@ -10,7 +10,7 @@ public class TextToSpeechLogic : MonoBehaviour
     string speakerstext = "spaceholder";
 
     //initializing TextToSpeech-script
-    TextToSpeech textToSpeech = new TextToSpeech();
+    readonly TextToSpeech textToSpeech = new TextToSpeech();
 
 
     //include toggle into the script
@@ -28,12 +28,12 @@ public class TextToSpeechLogic : MonoBehaviour
         {
             speakerstext = "Palpate the carotid artery with your left hand, covering the artery with your fingers. Insert the needle 0.5 to 1 centimeter laterally to the artery, aiming at a 45 angle to the vertical.";
             //Start Animation
-            syringe.GetComponent<toggle>().start_animation();
+            syringe.GetComponent<Syringe>().StartAnimation();
             //alternatively
             //public toggle Syringe = new toggle();
         }
         else if (position == 2) 
-        { syringe.GetComponent<toggle>().stop_animation(); 
+        { syringe.GetComponent<Syringe>().StopAnimation(); 
           speakerstext = "Advance slowly, aspirating all the time, until you enter the vein.Enter 3 to 4 centimeters into the vein."; 
         }
         else if (position == 3) { speakerstext = "Remove the syringe, keeping the needle very still, and immediately put your thumb over the end of the needle. Great job, you sucessfully inserted the central line!"; }
@@ -66,9 +66,9 @@ public class TextToSpeechLogic : MonoBehaviour
         position = 4;
         textToSpeech.StartSpeaking("Well done and see you soon!");
         //stop animation if it´s running
-        if (syringe.GetComponent<toggle>().isActiveAndEnabled) 
+        if (syringe.GetComponent<Syringe>().isActiveAndEnabled) 
         {
-            syringe.GetComponent<toggle>().stop_animation(); 
+            syringe.GetComponent<Syringe>().StopAnimation(); 
         }
         //quit app
         Application.Quit();

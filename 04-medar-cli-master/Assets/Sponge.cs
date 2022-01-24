@@ -5,7 +5,7 @@ using UnityEngine;
 public class Sponge : MonoBehaviour
 {
     public GameObject sponge;
-    private float scale = 100F;
+    private readonly float scale = 100F;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,27 +16,27 @@ public class Sponge : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.CapsLock))
         {
-            print("capslock was pressed");
+            print("caps lock was pressed");
 
             if (sponge.transform.localScale.x == 0 && sponge.transform.localScale.y == 0 && sponge.transform.localScale.z == 0)
             {
-                start_animation();
+                StartAnimation();
             }
             else
             {
-                stop_animation();
+                StopAnimation();
             }
 
 
         }
 
     }
-    public void start_animation()
+    public void StartAnimation()
     {
         sponge.transform.localScale = new Vector3(scale, scale, scale);
     }
 
-    public void stop_animation()
+    public void StopAnimation()
     {
         sponge.transform.localScale = new Vector3(0, 0, 0);
     }
