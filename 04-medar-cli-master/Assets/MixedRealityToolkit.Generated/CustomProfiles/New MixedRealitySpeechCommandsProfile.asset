@@ -18,7 +18,7 @@ MonoBehaviour:
   speechCommands:
   - localizationKey: 
     keyword: start
-    keyCode: 44
+    keyCode: 0
     action:
       id: 0
       description: None
@@ -74,6 +74,20 @@ MonoBehaviour:
       axisConstraint: 0
   - localizationKey: 
     keyword: continue
+    keyCode: 0
+    action:
+      id: 0
+      description: None
+      axisConstraint: 0
+  - localizationKey: 
+    keyword: aspiration failed
+    keyCode: 0
+    action:
+      id: 0
+      description: None
+      axisConstraint: 0
+  - localizationKey: 
+    keyword: yes
     keyCode: 0
     action:
       id: 0
