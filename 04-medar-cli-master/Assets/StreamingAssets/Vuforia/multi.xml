@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+    <Tracking>
+        <ImageTarget name="needel.Front" size="0.050000 0.049912"/>
+        <ImageTarget name="needel.Top" size="0.050000 0.050000"/>
+        <ImageTarget name="needel.Right" size="0.050000 0.049910"/>
+        <ImageTarget name="needel.Left" size="0.050000 0.050000"/>
+        <ImageTarget name="needel.Bottom" size="0.050000 0.050089"/>
+        <MultiTarget name="needel">
+            <Part name="needel.Left" translation="-0.02500000037252903 0 0" rotation="AD: 0 1 0 -90"/>
+            <Part name="needel.Right" translation="0.02500000037252903 0 0" rotation="AD: 0 1 0 90"/>
+            <Part name="needel.Front" translation="0 0 0.02500000037252903" rotation="AD: 1 0 0 0"/>
+            <Part name="needel.Top" translation="0 0.02500000037252903 0" rotation="AD: 1 0 0 -90"/>
+            <Part name="needel.Bottom" translation="0 -0.02500000037252903 0" rotation="AD: 1 0 0 90"/>
+        </MultiTarget>
+    </Tracking>
+</QCARConfig>
