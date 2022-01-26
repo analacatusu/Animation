@@ -5,7 +5,7 @@ using UnityEngine;
 
     public class Syringe : MonoBehaviour
     {
-        public GameObject OBJECT1;
+        public GameObject syringe;
         private readonly float scale = 0.05F;
         // Start is called before the first frame update
         void Start()
@@ -19,7 +19,7 @@ using UnityEngine;
             {
                 print("space key was pressed");
 
-                if (OBJECT1.transform.localScale.x == 0 && OBJECT1.transform.localScale.y == 0 && OBJECT1.transform.localScale.z == 0)
+                if (syringe.transform.localScale.x == 0 && syringe.transform.localScale.y == 0 && syringe.transform.localScale.z == 0)
                 {
                     StartAnimation();
                 }
@@ -34,11 +34,11 @@ using UnityEngine;
         }
         public void StartAnimation()
         {
-            OBJECT1.transform.localScale = new Vector3(scale, scale, scale);
+            syringe.transform.localScale = new Vector3(scale, scale, scale);
         }
 
         public void StopAnimation()
         {
-            OBJECT1.transform.localScale = new Vector3(0, 0, 0);
+            syringe.transform.localScale = new Vector3(0, 0, 0);
         }
     }

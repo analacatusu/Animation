@@ -84,4 +84,3 @@ Cmd: preprocess
   insize=2789 outsize=1228 ok=1
 Cmd: preprocess
   insize=3792 outsize=1760 ok=1
-Cmd: shutdown

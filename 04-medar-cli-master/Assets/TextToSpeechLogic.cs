@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Microsoft.MixedReality.Toolkit.Audio;
+using UnityEditor;
 
 public class TextToSpeechLogic : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class TextToSpeechLogic : MonoBehaviour
     public GameObject syringe;
     public GameObject sponge;
     public GameObject painkiller;
+    public GameObject heart;
 
     /// <summary>
     /// Sets the specified text dependent on the position | should also be used for repeat [the current step] & continue, so the animations will be set awake again
@@ -49,6 +51,7 @@ public class TextToSpeechLogic : MonoBehaviour
                     break;
 
                 case 3: //Insertion
+                    heart.GetComponent<Heart>().Appear();
                     speakerstext = "Now take the needle and insert it 0.5 to 1 centimeter laterally to the artery, aiming at a 45 angle to the vertical. In men, aim for the right nipple; in women, aim for the iliac crest.Advance slowly, aspirating all the time, until you enter 3 to 4 centimeter into the vein. - Are you able to aspirate blood?";
                     syringe.GetComponent<Syringe>().StartAnimation();
                     break;
@@ -105,8 +108,9 @@ public class TextToSpeechLogic : MonoBehaviour
         sponge.GetComponent<Sponge>().StopAnimation();
         syringe.GetComponent<Syringe>().StopAnimation();
         painkiller.GetComponent<PainKiller>().StopAnimation();
+        heart.GetComponent<Heart>().Disappear();
 
-//initializing the TextToSpeech-Schript locally
+        //initializing the TextToSpeech-Schript locally
         TextToSpeech textToSpeech = audioSource.GetComponent<TextToSpeech>();
 //if the user made too many mistakes
         if (negationCounter >1 && (position == 3 || position == 4))
@@ -117,6 +121,8 @@ public class TextToSpeechLogic : MonoBehaviour
         else textToSpeech.StartSpeaking("Well done, you succeeded!");
 //to make sure that the app will quit, the position is being changed to a number > 8
         position = 7;
+        print("reached here");
+        EditorApplication.isPlaying = false;
     }
 
     public void Next()
