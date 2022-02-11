@@ -5,7 +5,7 @@ using UnityEngine;
 public class PainKiller : MonoBehaviour
 {
     public GameObject painKiller;
-    private readonly float scale = 5.0F;
+    private readonly float scale = 0.8F;
     // Start is called before the first frame update
     void Start()
     {

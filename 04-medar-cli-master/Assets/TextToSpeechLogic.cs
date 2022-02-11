@@ -52,49 +52,62 @@ public class TextToSpeechLogic : MonoBehaviour
                     speakerstext = "Next, draw up 10 ml of lidocaine. Infiltrate local anesthetic all around the site by touching the skin five times with the tip of your needle. Work down toward the vein.";
                     break;
 
-                case 2: //show vein in US-image
+                case 2: //take US probe
                     painkiller.GetComponent<PainKiller>().StopAnimation();
-                    speakerstext = "Until the anaestethics starts to work, always determine the location of the vein with ultrasound to avoid complications."; 
-                    // Additional text if we do not use the sound from the video:
-                    // ...The internal jungular vein will appear as a dark elliptical shape. It is located lateral and superficial to the carotic artery. You can convince yourself further by compression testing. The vein will compress and the artery will remain plump and pulsatile.";
-                    
-                    //Show the ultrasound video
-
+                    speakerstext = "Until the anaestethics starts to work, always determine the location of the vein with ultrasound to avoid complications.";
+                    speakerstext = "Now take the ultrasound probe and follow the movements that are shown to you";
+                    ultrasoundProbe.GetComponent<Ultrasound>().StartAnimation();
                     break;
 
-                case 3: //Insertion
+                case 3: //show US video
+                    ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
+                    speakerstext = "Watch the following video to understand what you are expected to see";
+                    // Additional text if we do not use the sound from the video:
+                    // ...The internal jungular vein will appear as a dark elliptical shape. It is located lateral and superficial to the carotic artery. You can convince yourself further by compression testing. The vein will compress and the artery will remain plump and pulsatile.";
+                    //Show the ultrasound video
+                    break;
+
+                case 4: //Insertion
                     heart.GetComponent<Heart>().Appear();
                     speakerstext = "Now take the needle and insert it 0.5 to 1 centimeter laterally to the artery, aiming at a 45 angle to the vertical. In men, aim for the right nipple; in women, aim for the iliac crest. Advance slowly, aspirating all the time, until you enter 3 to 4 centimeter into the vein. - Are you able to aspirate dark, venous blood?";
                     syringe.GetComponent<Syringe>().StartAnimation();
                     break;
 
-                case 4: //Negation - blood was not aspirated
+                case 5: //Negation - blood was not aspirated
                     syringe.GetComponent<Syringe>().StopAnimation();
                     speakerstext = "Withdraw the needle, re-enter at the same point, but aim slightly more medially. - Are you now able to aspirate blood?";
                     syringe.GetComponent<Syringe>().StartAnimation();
                     break;
 
-                case 5://aspiration was successfull > check with ultrasound
-                    negationCounter = 0;
+                case 6://aspiration was successfull > check with ultrasound
+                    //negationCounter = 0;
                     syringe.GetComponent<Syringe>().StopAnimation();
-                    heart.GetComponent<Heart>().Disappear();
+                    //heart.GetComponent<Heart>().Disappear();
                     speakerstext = "Great! Let´s check how the insertion of the tip of the needle into the vein looks like using ultrasound.";
+                    speakerstext = "Take again the ultrasound probe.";
                     //ultrasound probe animation
-                    
+                    ultrasoundProbe.GetComponent<Ultrasound>().StartAnimation();
+                    break;
+
+                case 7: // show US video and images
+                    negationCounter = 0;
+                    ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
+                    speakerstext = "Watch the following video to see check whether you can correctly identify the tip of the needle with ultrasound.";
                     //show ultrasound-video
 
                     //show ultrasound-image
-
                     break;
 
-                case 6: //Blood was aspirated > remove the syringe
+                case 8: //Blood was aspirated > remove the syringe
                     speakerstext = "Once the needle is in the lumen of the jugular vein and you were able to aspirate dark venous blood, very carefully remove the syringe from the needle, keeping it very still.";
                     break;
-                case 7: //insert wire
+
+                case 9: //insert wire
                     speakerstext = "If you are using the compass pressure transducer, you can feed the wire trough it, so you don´t have to remove the syringe. Take the wire and insert it into the end of the needle, advance at least 20 centimeters, but only until the colormark on the wire reaches the skin. The wire should advance smoothly. Keep one hand on the wire at all times, until it is removed.";
 
                     break;
-                case 8: //check the wire position with ultrasound
+
+                case 10: //check the wire position with ultrasound
                     speakerstext = "Now let´s conform if the placement of the wire. The wire should look like the following picture. ";
                     //ultrasound probe animation
 
@@ -102,42 +115,47 @@ public class TextToSpeechLogic : MonoBehaviour
 
                     break;
 
-                case 9: //remove needle
+                case 11: //remove needle
                     speakerstext = "Next, remove the needle, keeping the wire in place.";
                     break; 
-                case 10: //insert & remove dillator
+
+                case 12: //insert & remove dillator
                     speakerstext = "Make a nick in the skin where the wire enters the skin to get the dialator trough. Now, grab the dilator and feed it over the wire to the skin. Apply firm but steady pressure, gently oscillating the wire back and forth while twisting the dialator firmly, to dialate the skin. Only insert the dilator up the depth of the anticipated vein, which is usually no more than 3 to 4 centimeters. Afterwards remove the dialator.";
                     //dialator animation
 
                     break; 
 
-                case 11: //put central line on wire
+                case 13: //put central line on wire
                     speakerstext = "Insert the central line over the wire until the wire is poking out of the port. Keep one hand on the wire at all times. Now push the catheter slowly a bit further into the vein.";
                     break; 
-                case 12: //withdraw wire a bit
+
+                case 14: //withdraw wire a bit
                     speakerstext = "Slowly withdraw the wire back through the central line until the wire tip appears from the line port. Hold the wire here. ";
                     break;
-                case 13: //insert line completely
+
+                case 15: //insert line completely
                     speakerstext = "Insert the line until a few centimeters are left outside the skin.";
                     
                     break;
-                case 14: //withdraw wire
+
+                case 16: //withdraw wire
                     speakerstext ="Withdraw the wire and immediately clip off the remaining port.";
                     break;
 
-                case 15://us-image of catheter
+                case 17://us-image of catheter
                     speakerstext = "";
                     break;
-                case 16:
+
+                case 18:
                     speakerstext ="Attach the line to the skin with sutures.";
                     break;
          
-                case 17: //clear after insertion
+                case 19: //clear after insertion
                     speakerstext = "Clean the skin around the line using the cotton pad once more, dry, and cover it with occlusive dressings.";
                     sponge.GetComponent<Sponge>().StartAnimation();
                     break;
 
-                case 18: FinishSpeaking();
+                case 20: FinishSpeaking();
                     break;
             }
         } else FinishSpeaking();
@@ -180,7 +198,7 @@ public class TextToSpeechLogic : MonoBehaviour
 //if user succeeded
         else textToSpeech.StartSpeaking("Well done, you sucessfully inserted a central line!");
 //to make sure that the app will quit, the position is being changed to a number > 8
-        position = 7;
+        position = 8;
         print("reached here");
         EditorApplication.isPlaying = false;
     }
@@ -192,7 +210,7 @@ public class TextToSpeechLogic : MonoBehaviour
         {
             position = 5;
         } 
-        else if(position <=7) position++;
+        else if(position <=8) position++;
 
         GetText();
     }
@@ -205,7 +223,7 @@ public class TextToSpeechLogic : MonoBehaviour
             position--;
         }
         //check if it´s the "insertion-succeeded"-step. if it is this one, do not go to the "insertion failed"-step but to the previous one
-        if (position <= 4 && position < 7)
+        if (position <= 4 && position < 8)
         {
             negationCounter = 0;
             position=3;
@@ -222,6 +240,8 @@ public class TextToSpeechLogic : MonoBehaviour
         sponge.GetComponent<Sponge>().StopAnimation();
         syringe.GetComponent<Syringe>().StopAnimation();
         painkiller.GetComponent<PainKiller>().StopAnimation();
+        heart.GetComponent<Heart>().Disappear();
+        ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
     }
 
     public void AspirationFailed() //for the "no"-answer
