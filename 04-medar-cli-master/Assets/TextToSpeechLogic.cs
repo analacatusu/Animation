@@ -24,6 +24,7 @@ public class TextToSpeechLogic : MonoBehaviour
     public GameObject dillator;
     public GameObject catheter;
     public GameObject ultrasoundProbe;
+    public GameObject needle;
 
     //initialize US-images
     //public GameObject usImage1;
@@ -104,58 +105,67 @@ public class TextToSpeechLogic : MonoBehaviour
 
                 case 9: //insert wire
                     speakerstext = "If you are using the compass pressure transducer, you can feed the wire trough it, so you don´t have to remove the syringe. Take the wire and insert it into the end of the needle, advance at least 20 centimeters, but only until the colormark on the wire reaches the skin. The wire should advance smoothly. Keep one hand on the wire at all times, until it is removed.";
-
+                    needle.GetComponent<Needle>().Appear();
+                    wire.GetComponent<Wire>().StartAnimation();
                     break;
 
                 case 10: //check the wire position with ultrasound
-                    speakerstext = "Now let´s conform if the placement of the wire. The wire should look like the following picture. ";
+                    speakerstext = "Now let´s confirm the placement of the wire. Take the ultrasound probe again";
+                    wire.GetComponent<Wire>().StopAnimation();
+                    needle.GetComponent<Needle>().Disappear();
                     //ultrasound probe animation
+                    ultrasoundProbe.GetComponent<Ultrasound>().StartAnimation();   
+                    break;
 
+                case 11: // check wire position with ultrasound
+                    speakerstext = "The wire should look like the following picture.";
+                    ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
                     //ultrasound image of the wire
 
                     break;
 
-                case 11: //remove needle
+                case 12: //remove needle
                     speakerstext = "Next, remove the needle, keeping the wire in place.";
                     break; 
 
-                case 12: //insert & remove dillator
-                    speakerstext = "Make a nick in the skin where the wire enters the skin to get the dialator trough. Now, grab the dilator and feed it over the wire to the skin. Apply firm but steady pressure, gently oscillating the wire back and forth while twisting the dialator firmly, to dialate the skin. Only insert the dilator up the depth of the anticipated vein, which is usually no more than 3 to 4 centimeters. Afterwards remove the dialator.";
+                case 13: //insert & remove dillator
+                    speakerstext = "Make a nick in the skin where the wire enters the skin to get the dilator through. Now, grab the dilator and feed it over the wire to the skin. Apply firm but steady pressure, gently oscillating the wire back and forth while twisting the dialator firmly, to dialate the skin. Only insert the dilator up the depth of the anticipated vein, which is usually no more than 3 to 4 centimeters. Afterwards remove the dialator.";
                     //dialator animation
-
+                    dillator.GetComponent<Dillator>().StartAnimation();
                     break; 
 
-                case 13: //put central line on wire
+                case 14: //put central line on wire
+                    dillator.GetComponent<Dillator>().StopAnimation();
                     speakerstext = "Insert the central line over the wire until the wire is poking out of the port. Keep one hand on the wire at all times. Now push the catheter slowly a bit further into the vein.";
                     break; 
 
-                case 14: //withdraw wire a bit
+                case 15: //withdraw wire a bit
                     speakerstext = "Slowly withdraw the wire back through the central line until the wire tip appears from the line port. Hold the wire here. ";
                     break;
 
-                case 15: //insert line completely
+                case 16: //insert line completely
                     speakerstext = "Insert the line until a few centimeters are left outside the skin.";
                     
                     break;
 
-                case 16: //withdraw wire
+                case 17: //withdraw wire
                     speakerstext ="Withdraw the wire and immediately clip off the remaining port.";
                     break;
 
-                case 17://us-image of catheter
+                case 18://us-image of catheter
                     speakerstext = "";
                     break;
 
-                case 18:
+                case 19:
                     speakerstext ="Attach the line to the skin with sutures.";
                     break;
          
-                case 19: //clear after insertion
+                case 20: //clear after insertion
                     speakerstext = "Clean the skin around the line using the cotton pad once more, dry, and cover it with occlusive dressings.";
                     sponge.GetComponent<Sponge>().StartAnimation();
                     break;
 
-                case 20: FinishSpeaking();
+                case 21: FinishSpeaking();
                     break;
             }
         } else FinishSpeaking();

@@ -8,7 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: 17414_Floor_cone_mandrel_v1Mat
-    second: {fileID: 2100000, guid: 136544d5b4710a948b76a024a29c5b84, type: 2}
+    second: {fileID: 2100000, guid: 9968e36e503605248aa21c3a3f23d535, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
