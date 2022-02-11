@@ -22,7 +22,7 @@ public class TextToSpeechLogic : MonoBehaviour
     public GameObject needleTip; //for activating needle tracking
     public GameObject wire;
     public GameObject dillator;
-    public GameObject catheter;
+    public GameObject catheter_1;
     public GameObject ultrasoundProbe;
     public GameObject needle;
 
@@ -37,7 +37,7 @@ public class TextToSpeechLogic : MonoBehaviour
 
     public void GetText()
     {
-        if (position < 15)
+        if (position < 22)
         {
             switch (position)
             {
@@ -83,9 +83,7 @@ public class TextToSpeechLogic : MonoBehaviour
                 case 6://aspiration was successfull > check with ultrasound
                     //negationCounter = 0;
                     syringe.GetComponent<Syringe>().StopAnimation();
-                    //heart.GetComponent<Heart>().Disappear();
-                    speakerstext = "Great! Let´s check how the insertion of the tip of the needle into the vein looks like using ultrasound.";
-                    speakerstext = "Take again the ultrasound probe.";
+                    speakerstext = "Great! Let´s check how the insertion of the tip of the needle into the vein looks like using ultrasound. Take again the ultrasound probe.";
                     //ultrasound probe animation
                     ultrasoundProbe.GetComponent<Ultrasound>().StartAnimation();
                     break;
@@ -137,18 +135,22 @@ public class TextToSpeechLogic : MonoBehaviour
                 case 14: //put central line on wire
                     dillator.GetComponent<Dillator>().StopAnimation();
                     speakerstext = "Insert the central line over the wire until the wire is poking out of the port. Keep one hand on the wire at all times. Now push the catheter slowly a bit further into the vein.";
+                    catheter_1.GetComponent<Catheter_Part1>().Appear();
                     break; 
 
                 case 15: //withdraw wire a bit
+                    catheter_1.GetComponent<Catheter_Part1>().Disappear();
                     speakerstext = "Slowly withdraw the wire back through the central line until the wire tip appears from the line port. Hold the wire here. ";
                     break;
 
                 case 16: //insert line completely
+                    catheter_1.GetComponent<Catheter_Part1>().Appear();
                     speakerstext = "Insert the line until a few centimeters are left outside the skin.";
                     
                     break;
 
                 case 17: //withdraw wire
+                    catheter_1.GetComponent<Catheter_Part1>().Disappear();
                     speakerstext ="Withdraw the wire and immediately clip off the remaining port.";
                     break;
 
@@ -215,12 +217,13 @@ public class TextToSpeechLogic : MonoBehaviour
 
     public void Next()
     {
-//at position 3, skip the "failed insertion"-step
-        if(position == 3)
+//at position 4, skip the "failed insertion"-step
+        if(position == 4)
         {
-            position = 5;
+            position = 6;
         } 
-        else if(position <=8) position++;
+        else 
+            position++;
 
         GetText();
     }
@@ -233,10 +236,10 @@ public class TextToSpeechLogic : MonoBehaviour
             position--;
         }
         //check if it´s the "insertion-succeeded"-step. if it is this one, do not go to the "insertion failed"-step but to the previous one
-        if (position <= 4 && position < 8)
+        if (position == 6)
         {
             negationCounter = 0;
-            position=3;
+            position = 4;
         }
         GetText();
     }
@@ -252,24 +255,28 @@ public class TextToSpeechLogic : MonoBehaviour
         painkiller.GetComponent<PainKiller>().StopAnimation();
         heart.GetComponent<Heart>().Disappear();
         ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
-    }
+        wire.GetComponent<Wire>().StopAnimation();
+        dillator.GetComponent<Dillator>().StopAnimation();
+        needle.GetComponent<Needle>().Disappear();
+        catheter_1.GetComponent<Catheter_Part1>().Disappear();
+}
 
     public void AspirationFailed() //for the "no"-answer
     {
         negationCounter++;
         //aspiration failed for the first time
-        if (position == 3 && negationCounter < 2)
+        if (position == 4 && negationCounter < 2)
         {
             position++;
             GetText();
         }
         //For the 2nd try, repeat the question - the animation is already running
-        else if (position == 4 && negationCounter < 2)
+        else if (position == 5 && negationCounter < 2)
         {
             GetTextToSpeechStartSpeaking();
         }
         //if the blood aspiration or the needle insertion fails two times, finish the training
-        else if ((position == 3 || position == 4) && negationCounter >= 2)
+        else if ((position == 4 || position == 5) && negationCounter >= 2)
         {
             FinishSpeaking();
         }
@@ -278,11 +285,11 @@ public class TextToSpeechLogic : MonoBehaviour
 
     public void Approved()
     {
-        if(position == 3)
+        if(position == 4)
         { 
-            position=5; 
+            position=6; 
         }
-        else if(position == 4)
+        else if(position == 5)
         {
             position++;
         }
