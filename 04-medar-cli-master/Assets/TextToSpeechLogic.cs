@@ -37,12 +37,12 @@ public class TextToSpeechLogic : MonoBehaviour
 
     public void GetText()
     {
-        if (position < 22)
+        if (position <= 21)
         {
             switch (position)
             {
                 case 0: //cleaning and sterilising
-                    speakerstext = "Welcome to the training lesson for inserting a central line into the internal jungular vein. At first, drape the insertion site and clean it using the cotton pad and some antiseptic solution.";
+                    speakerstext = "Welcome to the training lesson for inserting a central line into the right internal jungular vein. At first, drape the insertion site and clean it using the cotton pad and some antiseptic solution.";
                     //show the animated sponge
                     sponge.GetComponent<Sponge>().StartAnimation();
                     break;
@@ -55,35 +55,40 @@ public class TextToSpeechLogic : MonoBehaviour
 
                 case 2: //take US probe
                     painkiller.GetComponent<PainKiller>().StopAnimation();
-                    speakerstext = "Until the anaestethics starts to work, always determine the location of the vein with ultrasound to avoid complications.";
-                    speakerstext = "Now take the ultrasound probe and follow the movements that are shown to you";
+                    speakerstext = "Until the anaestethics starts to work, always determine the location of the vein using ultrasound to avoid complications. Therefore take a small linear probe and move it like shown.";
                     ultrasoundProbe.GetComponent<Ultrasound>().StartAnimation();
                     break;
 
                 case 3: //show US video
                     ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
-                    speakerstext = "Watch the following video to understand what you are expected to see";
+                    speakerstext = "Watch the following video to understand what you are expected to see.";
+                    // if we got here by "back, stop the animations
+                    heart.GetComponent<Heart>().Disappear();
+                    syringe.GetComponent<Syringe>().StopAnimation();
                     // Additional text if we do not use the sound from the video:
                     // ...The internal jungular vein will appear as a dark elliptical shape. It is located lateral and superficial to the carotic artery. You can convince yourself further by compression testing. The vein will compress and the artery will remain plump and pulsatile.";
                     //Show the ultrasound video
+
                     break;
 
                 case 4: //Insertion
                     heart.GetComponent<Heart>().Appear();
-                    speakerstext = "Now take the needle and insert it 0.5 to 1 centimeter laterally to the artery, aiming at a 45 angle to the vertical. In men, aim for the right nipple; in women, aim for the iliac crest. Advance slowly, aspirating all the time, until you enter 3 to 4 centimeter into the vein. - Are you able to aspirate dark, venous blood?";
+                    speakerstext = "Now take the compass pressure transducer syringe and insert it 0.5 to 1 centimeter laterally to the artery, aiming at a 45 angle to the vertical. In men, aim for the right nipple; in women, aim for the iliac crest. Advance slowly, aspirating all the time, until you enter 3 to 4 centimeter into the vein. - Are you able to aspirate dark, venous blood?";
                     syringe.GetComponent<Syringe>().StartAnimation();
                     break;
 
                 case 5: //Negation - blood was not aspirated
-                    syringe.GetComponent<Syringe>().StopAnimation();
                     speakerstext = "Withdraw the needle, re-enter at the same point, but aim slightly more medially. - Are you now able to aspirate blood?";
                     syringe.GetComponent<Syringe>().StartAnimation();
+                    //if we got here by back, stop the US-animation
+                    ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
                     break;
 
                 case 6://aspiration was successfull > check with ultrasound
                     //negationCounter = 0;
                     syringe.GetComponent<Syringe>().StopAnimation();
-                    speakerstext = "Great! Let´s check how the insertion of the tip of the needle into the vein looks like using ultrasound. Take again the ultrasound probe.";
+                    heart.GetComponent<Heart>().Disappear();
+                    speakerstext = "Great! Let´s check how the insertion of the tip of the needle into the vein looks like using ultrasound. Take the ultrasound probe again and center it right over the vessel. Mimic the movements.";
                     //ultrasound probe animation
                     ultrasoundProbe.GetComponent<Ultrasound>().StartAnimation();
                     break;
@@ -91,24 +96,30 @@ public class TextToSpeechLogic : MonoBehaviour
                 case 7: // show US video and images
                     negationCounter = 0;
                     ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
-                    speakerstext = "Watch the following video to see check whether you can correctly identify the tip of the needle with ultrasound.";
+                    speakerstext = "Watch the following video to see whether you can correctly identify the tip of the needle using ultrasound.";
                     //show ultrasound-video
 
                     //show ultrasound-image
+
+                    //if "back" > stop the animation
+                    needle.GetComponent<Needle>().Disappear();
                     break;
 
-                case 8: //Blood was aspirated > remove the syringe
-                    speakerstext = "Once the needle is in the lumen of the jugular vein and you were able to aspirate dark venous blood, very carefully remove the syringe from the needle, keeping it very still.";
+                case 8: //insert wire
+                    needle.GetComponent<Needle>().Appear();
+                    speakerstext = "Remove the syringe from the needle and cover the tip of the needle with your finger.";
                     break;
 
-                case 9: //insert wire
-                    speakerstext = "If you are using the compass pressure transducer, you can feed the wire trough it, so you don´t have to remove the syringe. Take the wire and insert it into the end of the needle, advance at least 20 centimeters, but only until the colormark on the wire reaches the skin. The wire should advance smoothly. Keep one hand on the wire at all times, until it is removed.";
+                case 9:
+                    speakerstext = "Once the needle is in the lumen of the jugular vein and you were able to aspirate venous blood, feed the wire into the end of the needle, advance at least 20 centimeters, but only until the colormark on the wire reaches the skin. The wire should advance smoothly. Keep one hand on the wire at all times, until it is removed."; 
                     needle.GetComponent<Needle>().Appear();
                     wire.GetComponent<Wire>().StartAnimation();
+                    //if back
+                    ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
                     break;
 
                 case 10: //check the wire position with ultrasound
-                    speakerstext = "Now let´s confirm the placement of the wire. Take the ultrasound probe again";
+                    speakerstext = "Now let´s confirm the placement of the wire. Take the ultrasound probe again and place it central on the vein.";
                     wire.GetComponent<Wire>().StopAnimation();
                     needle.GetComponent<Needle>().Disappear();
                     //ultrasound probe animation
@@ -116,20 +127,23 @@ public class TextToSpeechLogic : MonoBehaviour
                     break;
 
                 case 11: // check wire position with ultrasound
-                    speakerstext = "The wire should look like the following picture.";
+                    speakerstext = "The wire should look like the following. When it´s too far in, you´ll notice it trough the irregular EKG.";
                     ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
                     //ultrasound image of the wire
 
                     break;
 
                 case 12: //remove needle
-                    speakerstext = "Next, remove the needle, keeping the wire in place.";
+                    speakerstext = "If you inserted the wire correctly, remove the needle, keeping the wire in place.";
+                    dillator.GetComponent<Dillator>().StopAnimation();
                     break; 
 
                 case 13: //insert & remove dillator
-                    speakerstext = "Make a nick in the skin where the wire enters the skin to get the dilator through. Now, grab the dilator and feed it over the wire to the skin. Apply firm but steady pressure, gently oscillating the wire back and forth while twisting the dialator firmly, to dialate the skin. Only insert the dilator up the depth of the anticipated vein, which is usually no more than 3 to 4 centimeters. Afterwards remove the dialator.";
+                    speakerstext = "Make a nick in the skin where the wire enters the skin to get the dilator through. Now, grab the dilator and feed it over the wire to the skin. Apply firm but steady pressure, gently oscillating the wire back and forth while twisting the dialator firmly. Only insert the dilator up the depth of the anticipated vein, which is usually no more than 3 to 4 centimeters. Afterwards remove the dialator.";
                     //dialator animation
                     dillator.GetComponent<Dillator>().StartAnimation();
+                    //if back
+                    catheter_1.GetComponent<Catheter_Part1>().Disappear();
                     break; 
 
                 case 14: //put central line on wire
@@ -146,16 +160,17 @@ public class TextToSpeechLogic : MonoBehaviour
                 case 16: //insert line completely
                     catheter_1.GetComponent<Catheter_Part1>().Appear();
                     speakerstext = "Insert the line until a few centimeters are left outside the skin.";
-                    
                     break;
 
                 case 17: //withdraw wire
                     catheter_1.GetComponent<Catheter_Part1>().Disappear();
-                    speakerstext ="Withdraw the wire and immediately clip off the remaining port.";
+                    speakerstext = "Withdraw the wire and immediately clip off the remaining port.";
                     break;
 
                 case 18://us-image of catheter
-                    speakerstext = "";
+                    //the main part (invertion) is done
+                    speakerstext = "Let´s check if the catheter is in place.";
+                    //thow the us-image with the catheter
                     break;
 
                 case 19:
@@ -202,15 +217,19 @@ public class TextToSpeechLogic : MonoBehaviour
 
 //initializing the TextToSpeech-Schript locally
         TextToSpeech textToSpeech = audioSource.GetComponent<TextToSpeech>();
-//if the user made too many mistakes
-        if (negationCounter >1 && (position == 3 || position == 4))
+        //if the user made too many mistakes
+        if (negationCounter > 1 && (position == 4 || position == 5))
         {
-             textToSpeech.StartSpeaking("Insertion failed. Please restart or quit the session.");        //GetComponent(TextToSpeech).StartSpeaking("Insertion failed. Please restart or quit the session.");
+            textToSpeech.StartSpeaking("Insertion failed. Please restart or quit the session.");        //alternatively: GetComponent(TextToSpeech).StartSpeaking("Insertion failed. Please restart or quit the session.");
         }
-//if user succeeded
-        else textToSpeech.StartSpeaking("Well done, you sucessfully inserted a central line!");
-//to make sure that the app will quit, the position is being changed to a number > 8
-        position = 8;
+        //if user succeeded
+        else if (position == 20 || position == 21)
+        {
+            textToSpeech.StartSpeaking("Well done, you sucessfully inserted a central line!");
+        }
+        else textToSpeech.StartSpeaking("Thank you for using the central line insertion training program and see you soon!");
+        //to make sure that the app will quit, the position is being changed to a number > 21
+        position = 21;
         print("reached here");
         EditorApplication.isPlaying = false;
     }
@@ -253,12 +272,12 @@ public class TextToSpeechLogic : MonoBehaviour
         sponge.GetComponent<Sponge>().StopAnimation();
         syringe.GetComponent<Syringe>().StopAnimation();
         painkiller.GetComponent<PainKiller>().StopAnimation();
-        heart.GetComponent<Heart>().Disappear();
+        //heart.GetComponent<Heart>().Disappear();
         ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
         wire.GetComponent<Wire>().StopAnimation();
         dillator.GetComponent<Dillator>().StopAnimation();
-        needle.GetComponent<Needle>().Disappear();
-        catheter_1.GetComponent<Catheter_Part1>().Disappear();
+        //needle.GetComponent<Needle>().Disappear();
+        //catheter_1.GetComponent<Catheter_Part1>().Disappear();
 }
 
     public void AspirationFailed() //for the "no"-answer
@@ -285,13 +304,9 @@ public class TextToSpeechLogic : MonoBehaviour
 
     public void Approved()
     {
-        if(position == 4)
+        if(position == 4 || position == 5)
         { 
             position=6; 
-        }
-        else if(position == 5)
-        {
-            position++;
         }
 //If "yes" is not an appropriate answer at this moment, do nothing
     }
