@@ -25,6 +25,7 @@ public class TextToSpeechLogic : MonoBehaviour
     public GameObject catheter_1;
     public GameObject ultrasoundProbe;
     public GameObject needle;
+    public GameObject syringe_fade_out;
 
     //initialize US-images
     //public GameObject usImage1;
@@ -42,12 +43,16 @@ public class TextToSpeechLogic : MonoBehaviour
             switch (position)
             {
                 case 0: //cleaning and sterilising
+                    // if back
+                    painkiller.GetComponent<PainKiller>().StopAnimation();
                     speakerstext = "Welcome to the training lesson for inserting a central line into the right internal jungular vein. At first, drape the insertion site and clean it using the cotton pad and some antiseptic solution.";
                     //show the animated sponge
                     sponge.GetComponent<Sponge>().StartAnimation();
                     break;
 
                 case 1: //aplly local aneastetic
+                    // if back
+                    ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
                     sponge.GetComponent<Sponge>().StopAnimation();
                     painkiller.GetComponent<PainKiller>().StartAnimation();
                     speakerstext = "Next, draw up 10 ml of lidocaine. Infiltrate local anesthetic all around the site by touching the skin five times with the tip of your needle. Work down toward the vein.";
@@ -72,16 +77,18 @@ public class TextToSpeechLogic : MonoBehaviour
                     break;
 
                 case 4: //Insertion
+                    // if back from 6
+                    ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
                     heart.GetComponent<Heart>().Appear();
                     speakerstext = "Now take the compass pressure transducer syringe and insert it 0.5 to 1 centimeter laterally to the artery, aiming at a 45 angle to the vertical. In men, aim for the right nipple; in women, aim for the iliac crest. Advance slowly, aspirating all the time, until you enter 3 to 4 centimeter into the vein. - Are you able to aspirate dark, venous blood?";
                     syringe.GetComponent<Syringe>().StartAnimation();
                     break;
 
                 case 5: //Negation - blood was not aspirated
-                    speakerstext = "Withdraw the needle, re-enter at the same point, but aim slightly more medially. - Are you now able to aspirate blood?";
-                    syringe.GetComponent<Syringe>().StartAnimation();
                     //if we got here by back, stop the US-animation
                     ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
+                    speakerstext = "Withdraw the needle, re-enter at the same point, but aim slightly more medially. - Are you now able to aspirate blood?";
+                    syringe.GetComponent<Syringe>().StartAnimation();                    
                     break;
 
                 case 6://aspiration was successfull > check with ultrasound
@@ -94,28 +101,30 @@ public class TextToSpeechLogic : MonoBehaviour
                     break;
 
                 case 7: // show US video and images
+                    //if "back" > stop the animations
+                    needle.GetComponent<Needle>().Disappear();
+                    syringe_fade_out.GetComponent<Syringe2>().StopAnimation();
                     negationCounter = 0;
                     ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
                     speakerstext = "Watch the following video to see whether you can correctly identify the tip of the needle using ultrasound.";
                     //show ultrasound-video
-
                     //show ultrasound-image
-
-                    //if "back" > stop the animation
-                    needle.GetComponent<Needle>().Disappear();
                     break;
 
                 case 8: //insert wire
-                    needle.GetComponent<Needle>().Appear();
+                    // if back
+                    wire.GetComponent<Wire>().StopAnimation();
                     speakerstext = "Remove the syringe from the needle and cover the tip of the needle with your finger.";
+                    needle.GetComponent<Needle>().Appear();
+                    syringe_fade_out.GetComponent<Syringe2>().StartAnimation();
                     break;
 
                 case 9:
-                    speakerstext = "Once the needle is in the lumen of the jugular vein and you were able to aspirate venous blood, feed the wire into the end of the needle, advance at least 20 centimeters, but only until the colormark on the wire reaches the skin. The wire should advance smoothly. Keep one hand on the wire at all times, until it is removed."; 
-                    needle.GetComponent<Needle>().Appear();
-                    wire.GetComponent<Wire>().StartAnimation();
                     //if back
                     ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
+                    speakerstext = "Once the needle is in the lumen of the jugular vein and you were able to aspirate venous blood, feed the wire into the end of the needle, advance at least 20 centimeters, but only until the colormark on the wire reaches the skin. The wire should advance smoothly. Keep one hand on the wire at all times, until it is removed."; 
+                    //needle.GetComponent<Needle>().Appear();
+                    wire.GetComponent<Wire>().StartAnimation();                  
                     break;
 
                 case 10: //check the wire position with ultrasound
@@ -130,20 +139,20 @@ public class TextToSpeechLogic : MonoBehaviour
                     speakerstext = "The wire should look like the following. When it´s too far in, you´ll notice it trough the irregular EKG.";
                     ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
                     //ultrasound image of the wire
-
                     break;
 
                 case 12: //remove needle
-                    speakerstext = "If you inserted the wire correctly, remove the needle, keeping the wire in place.";
+                    // if back
                     dillator.GetComponent<Dillator>().StopAnimation();
+                    speakerstext = "If you inserted the wire correctly, remove the needle, keeping the wire in place.";                 
                     break; 
 
                 case 13: //insert & remove dillator
-                    speakerstext = "Make a nick in the skin where the wire enters the skin to get the dilator through. Now, grab the dilator and feed it over the wire to the skin. Apply firm but steady pressure, gently oscillating the wire back and forth while twisting the dialator firmly. Only insert the dilator up the depth of the anticipated vein, which is usually no more than 3 to 4 centimeters. Afterwards remove the dialator.";
-                    //dialator animation
-                    dillator.GetComponent<Dillator>().StartAnimation();
                     //if back
                     catheter_1.GetComponent<Catheter_Part1>().Disappear();
+                    speakerstext = "Make a nick in the skin where the wire enters the skin to get the dilator through. Now, grab the dilator and feed it over the wire to the skin. Apply firm but steady pressure, gently oscillating the wire back and forth while twisting the dialator firmly. Only insert the dilator up the depth of the anticipated vein, which is usually no more than 3 to 4 centimeters. Afterwards remove the dialator.";
+                    //dillator animation
+                    dillator.GetComponent<Dillator>().StartAnimation();                    
                     break; 
 
                 case 14: //put central line on wire
@@ -174,6 +183,8 @@ public class TextToSpeechLogic : MonoBehaviour
                     break;
 
                 case 19:
+                    //if back
+                    sponge.GetComponent<Sponge>().StopAnimation();
                     speakerstext ="Attach the line to the skin with sutures.";
                     break;
          
