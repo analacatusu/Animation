@@ -101,6 +101,7 @@ public class TextToSpeechLogic : MonoBehaviour
                     break;
 
                 case 7: // show US video and images
+                    heart.GetComponent<Heart>().Appear();
                     //if "back" > stop the animations
                     needle.GetComponent<Needle>().Disappear();
                     syringe_fade_out.GetComponent<Syringe2>().StopAnimation();
@@ -122,6 +123,7 @@ public class TextToSpeechLogic : MonoBehaviour
                 case 9:
                     //if back
                     ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
+                    syringe_fade_out.GetComponent<Syringe2>().StopAnimation();
                     speakerstext = "Once the needle is in the lumen of the jugular vein and you were able to aspirate venous blood, feed the wire into the end of the needle, advance at least 20 centimeters, but only until the colormark on the wire reaches the skin. The wire should advance smoothly. Keep one hand on the wire at all times, until it is removed."; 
                     //needle.GetComponent<Needle>().Appear();
                     wire.GetComponent<Wire>().StartAnimation();                  
