@@ -5,7 +5,7 @@ using UnityEngine;
 public class Ultrasound : MonoBehaviour
 {
     public GameObject ultrasound;
-    private readonly float scale = 0.013F;
+    private readonly float scale = 0.13F;
     // Start is called before the first frame update
     void Start()
     {
