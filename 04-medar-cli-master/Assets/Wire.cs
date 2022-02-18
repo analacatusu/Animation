@@ -6,6 +6,7 @@ public class Wire : MonoBehaviour
 {
     public GameObject wire;
     private readonly float scale = 1.0F;
+    public Material mat;
     // Start is called before the first frame update
     void Start()
     {
@@ -14,21 +15,23 @@ public class Wire : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            print("N was pressed");
+        /* if (Input.GetKeyDown(KeyCode.O))
+         {
+             print("N was pressed");
 
-            if (wire.transform.localScale.x == 0 && wire.transform.localScale.y == 0 && wire.transform.localScale.z == 0)
-            {
-                StartAnimation();
-            }
-            else
-            {
-                StopAnimation();
-            }
+             if (wire.transform.localScale.x == 0 && wire.transform.localScale.y == 0 && wire.transform.localScale.z == 0)
+             {
+                 StartAnimation();
+             }
+             else
+             {
+                 StopAnimation();
+             }
 
 
-        }
+         }*/
+        mat.SetVector("_CenterPoint", transform.position);
+        print(transform.position);
 
     }
     public void StartAnimation()
