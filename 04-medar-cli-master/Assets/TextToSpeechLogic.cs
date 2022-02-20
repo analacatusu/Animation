@@ -25,7 +25,7 @@ public class TextToSpeechLogic : MonoBehaviour
     public GameObject catheter_1;
     public GameObject ultrasoundProbe;
     public GameObject needle;
-    public GameObject syringe_fade_out;
+    //public GameObject syringe_fade_out;
 
     //initialize US-images
     //public GameObject usImage1;
@@ -53,6 +53,7 @@ public class TextToSpeechLogic : MonoBehaviour
                 case 1: //aplly local aneastetic
                     // if back
                     ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
+                    heart.GetComponent<Heart>().Disappear();
                     sponge.GetComponent<Sponge>().StopAnimation();
                     painkiller.GetComponent<PainKiller>().StartAnimation();
                     speakerstext = "Next, draw up 10 ml of lidocaine. Infiltrate local anesthetic all around the site by touching the skin five times with the tip of your needle. Work down toward the vein.";
@@ -62,6 +63,7 @@ public class TextToSpeechLogic : MonoBehaviour
                     painkiller.GetComponent<PainKiller>().StopAnimation();
                     speakerstext = "Until the anaestethics starts to work, always determine the location of the vein using ultrasound to avoid complications. Therefore take a small linear probe and move it like shown.";
                     ultrasoundProbe.GetComponent<Ultrasound>().StartAnimation();
+                    heart.GetComponent<Heart>().Appear();
                     break;
 
                 case 3: //show US video
@@ -94,17 +96,17 @@ public class TextToSpeechLogic : MonoBehaviour
                 case 6://aspiration was successfull > check with ultrasound
                     //negationCounter = 0;
                     syringe.GetComponent<Syringe>().StopAnimation();
-                    heart.GetComponent<Heart>().Disappear();
+                    //heart.GetComponent<Heart>().Disappear();
                     speakerstext = "Great! Let´s check how the insertion of the tip of the needle into the vein looks like using ultrasound. Take the ultrasound probe again and center it right over the vessel. Mimic the movements.";
                     //ultrasound probe animation
                     ultrasoundProbe.GetComponent<Ultrasound>().StartAnimation();
                     break;
 
                 case 7: // show US video and images
-                    heart.GetComponent<Heart>().Appear();
+                    heart.GetComponent<Heart>().Disappear();
                     //if "back" > stop the animations
                     needle.GetComponent<Needle>().Disappear();
-                    syringe_fade_out.GetComponent<Syringe2>().StopAnimation();
+                    //syringe_fade_out.GetComponent<Syringe2>().StopAnimation();
                     negationCounter = 0;
                     ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
                     speakerstext = "Watch the following video to see whether you can correctly identify the tip of the needle using ultrasound.";
@@ -117,13 +119,14 @@ public class TextToSpeechLogic : MonoBehaviour
                     wire.GetComponent<Wire>().StopAnimation();
                     speakerstext = "Remove the syringe from the needle and cover the tip of the needle with your finger.";
                     needle.GetComponent<Needle>().Appear();
-                    syringe_fade_out.GetComponent<Syringe2>().StartAnimation();
+                    heart.GetComponent<Heart>().Appear();
+                   // syringe_fade_out.GetComponent<Syringe2>().StartAnimation();
                     break;
 
                 case 9:
                     //if back
                     ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
-                    syringe_fade_out.GetComponent<Syringe2>().StopAnimation();
+                   // syringe_fade_out.GetComponent<Syringe2>().StopAnimation();
                     speakerstext = "Once the needle is in the lumen of the jugular vein and you were able to aspirate venous blood, feed the wire into the end of the needle, advance at least 20 centimeters, but only until the colormark on the wire reaches the skin. The wire should advance smoothly. Keep one hand on the wire at all times, until it is removed."; 
                     //needle.GetComponent<Needle>().Appear();
                     wire.GetComponent<Wire>().StartAnimation();                  

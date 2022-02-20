@@ -5,7 +5,7 @@ using UnityEngine;
 public class Syringe2 : MonoBehaviour
 {
     public GameObject syringe;
-    private readonly float scale = 0.02F;
+    private readonly float scale = 0.01F;
     // Start is called before the first frame update
     void Start()
     {

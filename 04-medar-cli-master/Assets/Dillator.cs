@@ -5,7 +5,7 @@ using UnityEngine;
 public class Dillator : MonoBehaviour
 {
     public GameObject dillator;
-    private readonly float scale = 0.001F;
+    private readonly float scale = 0.0005F;
     // Start is called before the first frame update
     void Start()
     {

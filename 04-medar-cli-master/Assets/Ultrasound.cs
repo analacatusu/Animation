@@ -5,7 +5,7 @@ using UnityEngine;
 public class Ultrasound : MonoBehaviour
 {
     public GameObject ultrasound;
-    private readonly float scale = 0.13F;
+    private readonly float scale = 0.15F;
    /* public Material mat1;
     public Material mat2;
     public Material mat3;
