@@ -38,7 +38,7 @@ public class TextToSpeechLogic : MonoBehaviour
 
     public void GetText()
     {
-        if (position <= 21)
+        if (position <= 20)
         {
             switch (position)
             {
@@ -103,7 +103,7 @@ public class TextToSpeechLogic : MonoBehaviour
                     break;
 
                 case 7: // show US video and images
-                    heart.GetComponent<Heart>().Disappear();
+                    //heart.GetComponent<Heart>().Disappear();
                     //if "back" > stop the animations
                     needle.GetComponent<Needle>().Disappear();
                     //syringe_fade_out.GetComponent<Syringe2>().StopAnimation();
@@ -128,7 +128,7 @@ public class TextToSpeechLogic : MonoBehaviour
                     ultrasoundProbe.GetComponent<Ultrasound>().StopAnimation();
                    // syringe_fade_out.GetComponent<Syringe2>().StopAnimation();
                     speakerstext = "Once the needle is in the lumen of the jugular vein and you were able to aspirate venous blood, feed the wire into the end of the needle, advance at least 20 centimeters, but only until the colormark on the wire reaches the skin. The wire should advance smoothly. Keep one hand on the wire at all times, until it is removed."; 
-                    //needle.GetComponent<Needle>().Appear();
+                    needle.GetComponent<Needle>().Appear();
                     wire.GetComponent<Wire>().StartAnimation();                  
                     break;
 
@@ -181,24 +181,18 @@ public class TextToSpeechLogic : MonoBehaviour
                     speakerstext = "Withdraw the wire and immediately clip off the remaining port.";
                     break;
 
-                case 18://us-image of catheter
-                    //the main part (invertion) is done
-                    speakerstext = "Let´s check if the catheter is in place.";
-                    //thow the us-image with the catheter
-                    break;
-
-                case 19:
+                case 18:
                     //if back
                     sponge.GetComponent<Sponge>().StopAnimation();
                     speakerstext ="Attach the line to the skin with sutures.";
                     break;
          
-                case 20: //clear after insertion
+                case 19: //clear after insertion
                     speakerstext = "Clean the skin around the line using the cotton pad once more, dry, and cover it with occlusive dressings.";
                     sponge.GetComponent<Sponge>().StartAnimation();
                     break;
 
-                case 21: FinishSpeaking();
+                case 20: FinishSpeaking();
                     break;
             }
         } else FinishSpeaking();
@@ -239,13 +233,13 @@ public class TextToSpeechLogic : MonoBehaviour
             textToSpeech.StartSpeaking("Insertion failed. Please restart or quit the session.");        //alternatively: GetComponent(TextToSpeech).StartSpeaking("Insertion failed. Please restart or quit the session.");
         }
         //if user succeeded
-        else if (position == 20 || position == 21)
+        else if (position == 19 || position == 20)
         {
             textToSpeech.StartSpeaking("Well done, you sucessfully inserted a central line!");
         }
         else textToSpeech.StartSpeaking("Thank you for using the central line insertion training program and see you soon!");
         //to make sure that the app will quit, the position is being changed to a number > 21
-        position = 21;
+        position = 20;
         print("reached here");
         EditorApplication.isPlaying = false;
     }
